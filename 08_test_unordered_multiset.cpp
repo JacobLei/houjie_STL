@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <cstdio>
+#include <algorithm>
 #include "assist.h"
 
 using namespace std;
@@ -37,6 +38,28 @@ void test_unordered_multiset(long& value)
     for(unsigned i=0; i<100; i++)
     {
         cout << "bucket #" << i << " has " << c.bucket_size(i) << endl;
+    }
+
+    string target = get_a_target_string();
+    {
+    timeStart = clock();
+    auto pItem = ::find(c.begin(), c.end(), target);
+    cout << "::find(), milli-seconds:" << clock() - timeStart << endl;
+    if( pItem != c.end() )
+        cout << "found , " << *pItem << endl;
+    else
+        cout << "not found" << endl;
+    }
+
+    {
+    timeStart = clock();
+    auto pItem = c.find(target);
+    cout << "::find(), milli-seconds:" << clock() - timeStart << endl;
+    if( pItem != c.end() )
+        cout << "found , " << *pItem << endl;
+    else
+        cout << "not found" << endl;
+    
     }
 }
 
